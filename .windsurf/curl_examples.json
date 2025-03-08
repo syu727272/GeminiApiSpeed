@@ -1,0 +1,58 @@
+{
+  "examples": [
+    {
+      "name": "基本的なテキスト生成",
+      "description": "AIに簡単な質問をして回答を得る例",
+      "curl_command": "curl \"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}\" \\\n-H 'Content-Type: application/json' \\\n-X POST \\\n-d '{\n  \"contents\": [{\n    \"parts\":[{\"text\": \"Explain how AI works\"}]\n    }]\n   }'",
+      "parameters": {
+        "model": "gemini-2.0-flash",
+        "prompt": "Explain how AI works"
+      }
+    },
+    {
+      "name": "生成パラメータの指定",
+      "description": "temperature、top_p、top_kなどのパラメータを指定する例",
+      "curl_command": "curl \"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}\" \\\n-H 'Content-Type: application/json' \\\n-X POST \\\n-d '{\n  \"contents\": [{\n    \"parts\":[{\"text\": \"Write a short poem about AI\"}]\n    }],\n  \"generationConfig\": {\n    \"temperature\": 0.9,\n    \"topP\": 0.8,\n    \"topK\": 40,\n    \"maxOutputTokens\": 200\n  }\n}'",
+      "parameters": {
+        "model": "gemini-2.0-flash",
+        "prompt": "Write a short poem about AI",
+        "temperature": 0.9,
+        "top_p": 0.8,
+        "top_k": 40,
+        "max_output_tokens": 200
+      }
+    },
+    {
+      "name": "ストリーミングレスポンス",
+      "description": "ストリーミングモードでレスポンスを取得する例",
+      "curl_command": "curl \"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:streamGenerateContent?key=${GEMINI_API_KEY}\" \\\n-H 'Content-Type: application/json' \\\n-X POST \\\n-d '{\n  \"contents\": [{\n    \"parts\":[{\"text\": \"Tell me a story about a robot\"}]\n    }]\n}'",
+      "parameters": {
+        "model": "gemini-2.0-flash",
+        "prompt": "Tell me a story about a robot",
+        "streaming": true
+      }
+    },
+    {
+      "name": "日本語プロンプト",
+      "description": "日本語でのプロンプト例",
+      "curl_command": "curl \"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}\" \\\n-H 'Content-Type: application/json' \\\n-X POST \\\n-d '{\n  \"contents\": [{\n    \"parts\":[{\"text\": \"人工知能の歴史について教えてください\"}]\n    }]\n}'",
+      "parameters": {
+        "model": "gemini-2.0-flash",
+        "prompt": "人工知能の歴史について教えてください"
+      }
+    },
+    {
+      "name": "複数のモデル比較",
+      "description": "異なるモデルで同じプロンプトを実行して比較する例",
+      "note": "このコマンドは2つの別々のcURLコマンドを実行する必要があります",
+      "curl_commands": [
+        "curl \"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}\" \\\n-H 'Content-Type: application/json' \\\n-X POST \\\n-d '{\n  \"contents\": [{\n    \"parts\":[{\"text\": \"量子コンピューティングの基本原理を説明してください\"}]\n    }]\n}'",
+        "curl \"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}\" \\\n-H 'Content-Type: application/json' \\\n-X POST \\\n-d '{\n  \"contents\": [{\n    \"parts\":[{\"text\": \"量子コンピューティングの基本原理を説明してください\"}]\n    }]\n}'"
+      ],
+      "parameters": {
+        "models": ["gemini-1.5-flash", "gemini-2.0-flash"],
+        "prompt": "量子コンピューティングの基本原理を説明してください"
+      }
+    }
+  ]
+}
